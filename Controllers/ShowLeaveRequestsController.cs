@@ -47,12 +47,15 @@ namespace LMSServices.Controllers
         {
             GetDescriptionController descr = new GetDescriptionController();
             ViewBag.descr = descr;
-            LeaveRequest leaverequest = db.LeaveRequests.Find(id);
-            if (leaverequest == null)
+
+            LeaveRequestsController leaverequest = new LeaveRequestsController();
+            var request = leaverequest.GetLeaveRequest(id);
+
+            if (request == null)
             {
                 return HttpNotFound();
             }
-            return View(leaverequest);
+            return View(request);
         }
 
         //
@@ -74,15 +77,19 @@ namespace LMSServices.Controllers
             //this.User
             if (ModelState.IsValid)
             {
+                leaverequest.UserID = WebSecurity.GetUserId(User.Identity.Name);
                 leaverequest.Status = "Q";
                 
                 CalculateNumOfDaysController c = new CalculateNumOfDaysController();
 
                 leaverequest.NumOfDays = c.Get(leaverequest.FromDate, leaverequest.ToDate);
+
+                LeaveRequestsController request = new LeaveRequestsController();
+                var succ = request.PostLeaveRequest(leaverequest);
                 
-                db.LeaveRequests.Add(leaverequest);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //db.LeaveRequests.Add(leaverequest);
+                //db.SaveChanges();
+                return RedirectToAction("UserLeaveRequests");
             }
 
             return View(leaverequest);
@@ -95,12 +102,15 @@ namespace LMSServices.Controllers
         {
             GetDescriptionController descr = new GetDescriptionController();
             ViewBag.descr = descr;
-            LeaveRequest leaverequest = db.LeaveRequests.Find(id);
-            if (leaverequest == null)
+
+            LeaveRequestsController leaverequest = new LeaveRequestsController();
+            var request = leaverequest.GetLeaveRequest(id);
+
+            if (request == null)
             {
                 return HttpNotFound();
             }
-            return View(leaverequest);
+            return View(request);
         }
 
         //
@@ -111,9 +121,24 @@ namespace LMSServices.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(leaverequest).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                LeaveRequestsController request = new LeaveRequestsController();
+                var succ = request.PutLeaveRequest(leaverequest.ID, leaverequest );
+                if (succ.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    //ModelState.AddModelError("puterror", new Exception("Gamithike Ligo.."));
+                    return RedirectToAction("UserLeaveRequests");
+                }
+                else
+                {
+                    ModelState.AddModelError("puterror", new Exception("Κάτι πήγε στραβά.. Ελέγξτε τα στοιχεία και δοκιμάστε ξανά.."));
+                    return View(leaverequest);
+                }
+                
+                //db.Entry(leaverequest).State = EntityState.Modified;
+                //db.SaveChanges();
+
+
+                
             }
             return View(leaverequest);
         }
@@ -140,7 +165,7 @@ namespace LMSServices.Controllers
             LeaveRequest leaverequest = db.LeaveRequests.Find(id);
             db.LeaveRequests.Remove(leaverequest);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("UserLeaveRequests");
         }
 
         protected override void Dispose(bool disposing)

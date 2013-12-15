@@ -15,61 +15,76 @@
         @Html.HiddenFor(model => model.ID)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.UserID)
+            <label for="UserID">@ViewBag.descr.Get("LeaveRequestColumns", "UserID")</label>
+            @*@Html.LabelFor(model => model.UserID)*@
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.UserID)
-            @Html.ValidationMessageFor(model => model.UserID)
+            @Html.TextBoxFor(model => model.UserID, new { @readonly = "readonly" })
+            
+@*            @Html.EditorFor(model => model.UserID)
+            @Html.ValidationMessageFor(model => model.UserID)*@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.FromDate)
+            <label for="FromDate">@ViewBag.descr.Get("LeaveRequestColumns", "FromDate")</label>
+            @*@Html.LabelFor(model => model.FromDate)*@
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.FromDate)
+            @Html.TextBoxFor(model => model.FromDate, new { @Value = Model.FromDate.ToString("yyyy-MM-dd"), @class = "datepicker" })
             @Html.ValidationMessageFor(model => model.FromDate)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ToDate)
+            <label for="ToDate">@ViewBag.descr.Get("LeaveRequestColumns", "ToDate")</label>
+            @*@Html.LabelFor(model => model.ToDate)*@
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ToDate)
+            @Html.TextBoxFor(model => model.ToDate, new { @Value = Model.ToDate.ToString("yyyy-MM-dd"), @class = "datepicker" })
             @Html.ValidationMessageFor(model => model.ToDate)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Type)
+            <label for="Type">@ViewBag.descr.Get("LeaveRequestColumns", "Type")</label>
+            @*@Html.LabelFor(model => model.Type)*@
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Type)
+            <select id="Type" name="Type" class="valid">
+                <option value="L" @(String.Compare(Model.Type, "L", false) == 0? "selected" : "") >@ViewBag.descr.Get("LeaveRequestType", Model.Type)</option>
+            </select>
+
+           @* @Html.TextBoxFor(model => model.Type, new { @Value = @ViewBag.descr.Get("LeaveRequestType", Model.Type) })*@
+            @*@Html.EditorFor(model => model.Type)*@
             @Html.ValidationMessageFor(model => model.Type)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.NumOfDays)
+            <label for="NumOfDays">@ViewBag.descr.Get("LeaveRequestColumns", "NumOfDays")</label>
+            @*@Html.LabelFor(model => model.NumOfDays)*@
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.NumOfDays)
-            @Html.ValidationMessageFor(model => model.NumOfDays)
-        </div>
+            @Html.TextBoxFor(model => model.NumOfDays, new { @readonly = "readonly" })
+            
+            @*@Html.ValidationMessageFor(model => model.NumOfDays)*@
+        </div><br />
 
-        <div class="editor-label">
+         @Html.HiddenFor(model => model.Status)
+
+@*        <div class="editor-label">
             @Html.LabelFor(model => model.Status)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Status)
             @Html.ValidationMessageFor(model => model.Status)
-        </div>
+        </div>*@
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Αποθήκευση" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Επιστροφή στη Λίστα", "UserLeaveRequests")
 </div>
 
 @section Scripts {

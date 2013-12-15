@@ -12,16 +12,16 @@
     <fieldset>
         <legend>LeaveRequest</legend>
 
-        <div class="editor-label">
+@*        <div class="editor-label">
             @Html.LabelFor(model => model.UserID)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.UserID)
             @Html.ValidationMessageFor(model => model.UserID)
-        </div>
+        </div>*@
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.FromDate, "Από")
+            <label for="FromDate">@ViewBag.descr.Get("LeaveRequestColumns", "FromDate")</label>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.FromDate)
@@ -41,8 +41,12 @@
             @Html.LabelFor(model => model.Type, "Τύπος Άδειας")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Type)
-            @Html.ValidationMessageFor(model => model.Type)
+            <select id="Type" name="Type" class="valid">
+                <option value="L">@ViewBag.descr.Get("LeaveRequestType", "L")</option>
+            </select>
+
+            @*@Html.EditorFor(model => model.Type)
+            @Html.ValidationMessageFor(model => model.Type)*@
         </div>
 
         <!--div class="editor-label">
@@ -68,7 +72,7 @@
 }
 
 <div>
-    @Html.ActionLink("Επιστροφή στη Λίστα", "Index")
+    @Html.ActionLink("Επιστροφή στη Λίστα", "UserLeaveRequests")
 </div>
 
 @section Scripts {

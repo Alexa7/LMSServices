@@ -72,6 +72,8 @@ namespace LMSServices.Controllers
         // PUT api/LeaveRequests/5
         public HttpResponseMessage PutLeaveRequest(int id, LeaveRequest leaverequest)
         {
+            var status = HttpStatusCode.OK;
+ 
             if (ModelState.IsValid && id == leaverequest.ID)
             {
                 db.Entry(leaverequest).State = EntityState.Modified;
@@ -82,32 +84,54 @@ namespace LMSServices.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    status = HttpStatusCode.NotFound;
                 }
 
-                return Request.CreateResponse(HttpStatusCode.OK);
+                status = HttpStatusCode.OK;
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
+               status = HttpStatusCode.BadRequest;
+            }
+
+            if (Request == null)
+            {
+                return new HttpResponseMessage(status);
+            }
+            else
+            {
+                return Request.CreateResponse(status);
             }
         }
 
         // POST api/LeaveRequests
         public HttpResponseMessage PostLeaveRequest(LeaveRequest leaverequest)
         {
+            var status = HttpStatusCode.OK;
+
             if (ModelState.IsValid)
             {
                 db.LeaveRequests.Add(leaverequest);
                 db.SaveChanges();
 
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, leaverequest);
-                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = leaverequest.ID }));
-                return response;
+                status = HttpStatusCode.Created;
+                                
+                //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, leaverequest);
+                //response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = leaverequest.ID }));
+                //return response;
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
+                status = HttpStatusCode.BadRequest;
+            }
+
+            if (Request == null)
+            {
+                return new HttpResponseMessage(status);
+            }
+            else
+            {
+                return Request.CreateResponse(status);
             }
         }
 

@@ -14,42 +14,42 @@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.UserID)
-    </div>
-
+    </div><br />
+    
     <div class="display-label">
          @ViewBag.descr.Get("LeaveRequestColumns", "FromDate")
     </div>
     <div class="display-field">
         @Model.FromDate.ToString("dd-MM-yyyy")
-    </div>
+    </div><br />
 
     <div class="display-label">
          @ViewBag.descr.Get("LeaveRequestColumns", "ToDate")
     </div>
     <div class="display-field">
         @Model.ToDate.ToString("dd-MM-yyyy")
-    </div>
+    </div><br />
 
     <div class="display-label">
          @ViewBag.descr.Get("LeaveRequestColumns", "Type")
     </div>
     <div class="display-field">
         @ViewBag.descr.Get("LeaveRequestType", Model.Type)
-    </div>
+    </div><br />
 
     <div class="display-label">
          @ViewBag.descr.Get("LeaveRequestColumns", "NumOfDays")
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.NumOfDays)
-    </div>
+    </div><br />
 
     <div class="display-label">
          @ViewBag.descr.Get("LeaveRequestColumns", "Status")
     </div>
     <div class="display-field">
          @ViewBag.descr.Get("LeaveRequestStatus", Model.Status)
-    </div>
+    </div><br />
 </fieldset>
 <br />
 <p>
@@ -57,5 +57,5 @@
     {
         @Html.ActionLink("Επεξεργασία", "Edit", new { id = Model.ID }) 
     }
-    @Html.ActionLink("Επιστροφή στη Λίστα", "Index")
+    @Html.ActionLink("Επιστροφή στη Λίστα", "UserLeaveRequests")
 </p>

@@ -1,4 +1,4 @@
-﻿@*@model IEnumerable<LMSServices.Models.LeaveRequest>*@
+﻿@model IEnumerable<LMSServices.Models.LeaveRequest>
 
 @{
     if (!Request.IsAuthenticated) {
@@ -42,7 +42,7 @@
         <th></th>
     </tr>
 
-@foreach (var item in ViewBag.userleaverequests) {
+@foreach (var item in model) {
     <tr>
     @if (User.IsInRole("HumanResources"))
     {

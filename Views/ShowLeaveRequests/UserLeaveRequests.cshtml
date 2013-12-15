@@ -73,10 +73,14 @@
             @if (String.Compare(item.Status, "P", false) != 0)
             {
                 @Html.ActionLink("Επεξεργασία", "Edit", new { id = item.ID });
-                @Html.ActionLink("Ακύρωση", "Delete", new { id = item.ID });
+                @Html.ActionLink("Διαγραφή", "Delete", new { id = item.ID });
             }
         </td>
     </tr>
 }
 
 </table>
+
+<br />
+<br />
+<p>Υπόλοιπο ημερών άδειας: 10</p>
