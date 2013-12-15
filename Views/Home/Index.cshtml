@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Καλωσήλθατε!";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title</h1><br />
+                <h2>@ViewBag.Message1</h2>
+            </hgroup>
+        </div>
+    </section>
+}
+<h3>@ViewBag.Message2</h3><br />
+@if (Request.IsAuthenticated)
+{
+    if (User.IsInRole("HumanResources"))
+    {
+        <h4>Διαχείριση Αδειών Χρηστών</h4>
+        <p>@Html.ActionLink("Εμφάνιση Αιτήσεων σε εκκρεμότητα", "Index", "ShowLeaveRequests")</p>
+        <br /><br />
+        <h4>Διαχείριση Προσωπικών Αιτήσεων</h4>
+    }
+
+    <p>@Html.ActionLink("Εμφάνιση Αιτήσεων", "Index", "ShowLeaveRequests/UserLeaveRequests")</p>
+    <p>@Html.ActionLink("Εμφάνιση Αδειών", "Index", "ShowLeaveRequests")</p>
+    <p>@Html.ActionLink("Δημιουργία νέας αίτησης", "Create", "LeaveRequests")</p>
+
+
+}
+else
+{
+    <p>@ViewBag.Message3</p><br />
+    <p>@Html.ActionLink("Σύνδεση χρήστη", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn" })</p>
+
+    <!--form id="login_form" action="#">
+        <label for="username">Username:</label>
+        <input id="username" name="username" type="text" />
+        <label for="password">Password:</label>
+        <input id="password" name="password" type="password" /><br />
+        <input type="submit" value="Είσοδος" />
+    </form-->
+}

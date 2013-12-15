@@ -1,0 +1,82 @@
+﻿@model IEnumerable<LMSServices.Models.LeaveRequest>
+
+@{
+    if (!Request.IsAuthenticated) {
+        Response.Redirect("/?msg=not-allowed");      
+    }
+   
+    ViewBag.Title = "Αιτήσεις Αδείας Χρήστη";
+    ViewBag.UserID = WebSecurity.GetUserId(User.Identity.Name);
+    DateTime today;
+    today = DateTime.Now;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Νέα Αίτηση", "Create")
+</p>
+<table class="leave_table">
+    <tr>
+@*    @if (User.IsInRole("HumanResources"))
+    { 
+        <th>
+            @ViewBag.descr.Get("LeaveRequestColumns", "UserID")
+        </th>
+    }*@
+        <th>
+            @ViewBag.descr.Get("LeaveRequestColumns", "FromDate")
+        </th>
+        <th>
+            @ViewBag.descr.Get("LeaveRequestColumns", "ToDate")
+        </th>
+        <th>
+             @ViewBag.descr.Get("LeaveRequestColumns", "Type")
+        </th>
+        <th>
+             @ViewBag.descr.Get("LeaveRequestColumns", "NumOfDays")
+        </th>
+        <th>
+             @ViewBag.descr.Get("LeaveRequestColumns", "Status")
+        </th>
+        <th>@ViewBag.userleaverequests</th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+@*    @if (User.IsInRole("HumanResources"))
+    {
+        <td>
+            @Html.DisplayFor(modelItem => item.UserID)
+        </td>
+    }*@
+        <td>
+            @item.FromDate.ToString("dd-MM-yyyy")
+        </td>
+        <td>
+            @item.ToDate.ToString("dd-MM-yyyy")
+        </td>
+        <td>
+            @ViewBag.descr.Get("LeaveRequestType", item.Type)
+            @*@Html.DisplayFor(modelItem => item.Type)*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumOfDays)
+        </td>
+        <td>
+            @ViewBag.descr.Get("LeaveRequestStatus", item.Status)
+            @*@Html.DisplayFor(modelItem => item.Status)*@
+        </td>
+        <td>
+            @Html.ActionLink("Λεπτομέρειες", "Details", new { id = item.ID })
+            @if (String.Compare(item.Status, "P", false) != 0)
+            {
+                @Html.ActionLink("Επεξεργασία", "Edit", new { id = item.ID });
+                @Html.ActionLink("Ακύρωση", "Delete", new { id = item.ID });
+            }
+        </td>
+    </tr>
+}
+
+</table>

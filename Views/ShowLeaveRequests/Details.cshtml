@@ -1,0 +1,61 @@
+﻿@model LMSServices.Models.LeaveRequest
+
+@{
+    ViewBag.Title = "Λεπτομέρειες Αίτησης";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<fieldset>
+    <legend>LeaveRequest</legend>
+
+    <div class="display-label">
+        @ViewBag.descr.Get("LeaveRequestColumns", "UserID")
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserID)
+    </div>
+
+    <div class="display-label">
+         @ViewBag.descr.Get("LeaveRequestColumns", "FromDate")
+    </div>
+    <div class="display-field">
+        @Model.FromDate.ToString("dd-MM-yyyy")
+    </div>
+
+    <div class="display-label">
+         @ViewBag.descr.Get("LeaveRequestColumns", "ToDate")
+    </div>
+    <div class="display-field">
+        @Model.ToDate.ToString("dd-MM-yyyy")
+    </div>
+
+    <div class="display-label">
+         @ViewBag.descr.Get("LeaveRequestColumns", "Type")
+    </div>
+    <div class="display-field">
+        @ViewBag.descr.Get("LeaveRequestType", Model.Type)
+    </div>
+
+    <div class="display-label">
+         @ViewBag.descr.Get("LeaveRequestColumns", "NumOfDays")
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NumOfDays)
+    </div>
+
+    <div class="display-label">
+         @ViewBag.descr.Get("LeaveRequestColumns", "Status")
+    </div>
+    <div class="display-field">
+         @ViewBag.descr.Get("LeaveRequestStatus", Model.Status)
+    </div>
+</fieldset>
+<br />
+<p>
+    @if (String.Compare(Model.Status, "P", false) != 0)
+    {
+        @Html.ActionLink("Επεξεργασία", "Edit", new { id = Model.ID }) 
+    }
+    @Html.ActionLink("Επιστροφή στη Λίστα", "Index")
+</p>

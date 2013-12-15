@@ -1,0 +1,111 @@
+﻿@model IEnumerable<LMSServices.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LogOnMessage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LogOffMessage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastLoginDT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChangePassword)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChangePasswordDT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegistrationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RemainingLeaveDays)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LogOnMessage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LogOffMessage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastLoginDT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChangePassword)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChangePasswordDT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegistrationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RemainingLeaveDays)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

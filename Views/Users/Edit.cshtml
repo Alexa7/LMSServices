@@ -1,0 +1,141 @@
+﻿@model LMSServices.Models.User
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>User</legend>
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Username)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Username)
+            @Html.ValidationMessageFor(model => model.Username)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Comment)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Comment)
+            @Html.ValidationMessageFor(model => model.Comment)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LogOnMessage)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LogOnMessage)
+            @Html.ValidationMessageFor(model => model.LogOnMessage)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LogOffMessage)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LogOffMessage)
+            @Html.ValidationMessageFor(model => model.LogOffMessage)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastLoginDT)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastLoginDT)
+            @Html.ValidationMessageFor(model => model.LastLoginDT)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ChangePassword)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ChangePassword)
+            @Html.ValidationMessageFor(model => model.ChangePassword)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ChangePasswordDT)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ChangePasswordDT)
+            @Html.ValidationMessageFor(model => model.ChangePasswordDT)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.InActive)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.InActive)
+            @Html.ValidationMessageFor(model => model.InActive)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RegistrationDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RegistrationDate)
+            @Html.ValidationMessageFor(model => model.RegistrationDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RemainingLeaveDays)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RemainingLeaveDays)
+            @Html.ValidationMessageFor(model => model.RemainingLeaveDays)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
