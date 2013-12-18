@@ -25,7 +25,7 @@ namespace LMSServices.Controllers
         // GET api/LeaveRequests/P
         public IEnumerable<LeaveRequest> GetLeaveRequest(string status)
         {
-            string[] leaveStatuses = { "P", "Q", "C" };
+            string[] leaveStatuses = { "P", "C", "A", "D" };
             if (status == null)
             {
                 throw new ArgumentNullException("status");

@@ -12,9 +12,13 @@ namespace LMSServices.Models
         public int UserID { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
-        public string Type { get; set; }
         public int NumOfDays { get; set; }
+        public Nullable<DateTime> AcceptedFromDate { get; set; }
+        public Nullable<DateTime> AcceptedToDate { get; set; }
+        public int AcceptedNumOfDays { get; set; }
+        public string Type { get; set; }
         public string Status { get; set; }
+        public int? AcceptedBy { get; set; }
     }
 
     public class DefaultDBContext : DbContext
@@ -24,5 +28,6 @@ namespace LMSServices.Models
         }
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
         public DbSet<NationalHolidays> NationalHolidays { get; set; }
+        public DbSet<AcceptedLeave> AcceptedLeaves { get; set; }
     }
 }

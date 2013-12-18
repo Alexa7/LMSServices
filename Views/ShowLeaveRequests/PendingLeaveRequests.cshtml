@@ -10,7 +10,7 @@
     }
     
    
-    ViewBag.Title = "Αιτήσεις Αδείας Χρηστών";
+    ViewBag.Title = "Αιτήσεις Χρηστών σε εκκρεμότητα";
     ViewBag.UserID = WebSecurity.GetUserId(User.Identity.Name);
     
 }
@@ -50,7 +50,6 @@
         </td>
         <td>
             @item.FromDate.ToString("dd-MM-yyyy")
-            @item.AcceptedFromDate
         </td>
         <td>
             @item.ToDate.ToString("dd-MM-yyyy")

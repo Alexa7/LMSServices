@@ -4,57 +4,57 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Διαγραφή</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Είστε σίγουρος ότι θέλετε να διαγράψετε αυτή την αίτηση;</h3><br />
 <fieldset>
     <legend>LeaveRequest</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.UserID)
+        @ViewBag.descr.Get("LeaveRequestColumns", "UserID")
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.UserID)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.FromDate)
+        @ViewBag.descr.Get("LeaveRequestColumns", "FromDate")
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.FromDate)
+        @Model.FromDate.ToString("dd-MM-yyyy")
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.ToDate)
+        @ViewBag.descr.Get("LeaveRequestColumns", "ToDate")
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.ToDate)
+        @Model.ToDate.ToString("dd-MM-yyyy")
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Type)
+        @ViewBag.descr.Get("LeaveRequestColumns", "Type")
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Type)
+        @ViewBag.descr.Get("LeaveRequestType", Model.Type)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.NumOfDays)
+        @ViewBag.descr.Get("LeaveRequestColumns", "NumOfDays")
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.NumOfDays)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Status)
+         @ViewBag.descr.Get("LeaveRequestColumns", "Status")
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Status)
+        @ViewBag.descr.Get("LeaveRequestStatus", Model.Status)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
+        <input type="submit" value="Διαγραφή" /> |
         @Html.ActionLink("Επιστροφή στη Λίστα", "UserLeaveRequests")
     </p>
 }

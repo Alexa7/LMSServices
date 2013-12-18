@@ -21,7 +21,11 @@ namespace LMSServices.Controllers
         {
             GetDescriptionController descr = new GetDescriptionController();
             ViewBag.descr = descr;
-            return View(db.LeaveRequests.ToList());
+
+            LeaveRequestsController userleaverequests = new LeaveRequestsController();
+            var requests = userleaverequests.GetLeaveRequests();
+
+            return View(requests);
         }
 
         //
@@ -35,7 +39,21 @@ namespace LMSServices.Controllers
 
             LeaveRequestsController userleaverequests = new LeaveRequestsController();
             var requests = userleaverequests.GetUserLeaveRequests(WebSecurity.GetUserId(User.Identity.Name));
-            //ViewBag.userleaverequests = userleaverequests;
+
+            return View(requests);
+        }
+
+        //
+        // GET: /ShowLeaveRequests/PendingLeaveRequests
+
+        public ActionResult PendingLeaveRequests()
+        {
+
+            GetDescriptionController descr = new GetDescriptionController();
+            ViewBag.descr = descr;
+
+            LeaveRequestsController userleaverequests = new LeaveRequestsController();
+            var requests = userleaverequests.GetLeaveRequest("Q");
 
             return View(requests);
         }
@@ -148,6 +166,9 @@ namespace LMSServices.Controllers
 
         public ActionResult Delete(int id = 0)
         {
+            GetDescriptionController descr = new GetDescriptionController();
+            ViewBag.descr = descr;
+
             LeaveRequest leaverequest = db.LeaveRequests.Find(id);
             if (leaverequest == null)
             {
