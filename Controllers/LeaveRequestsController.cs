@@ -182,9 +182,10 @@ namespace LMSServices.Controllers
             {
                 return "Η ημερομηνία έξαρξης άδειας έχει παρέλθει";
             }
-            if (leaveRequest.NumOfDays < 0)
+            int remaining = new CalcRemainingLeaveDaysController().Get(leaveRequest.UserID, leaveRequest.FromDate.Year);
+            if (leaveRequest.NumOfDays < remaining)
             {
-                return string.Format("Δεν μπορείτε να πάρετε περισσότερες από {0} μέρες άδειας", 0);
+                return string.Format("Δεν μπορείτε να πάρετε περισσότερες από {0} μέρες άδειας", remaining);
             }
             return string.Empty;
         }
