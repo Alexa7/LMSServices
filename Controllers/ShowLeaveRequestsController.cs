@@ -130,11 +130,16 @@ namespace LMSServices.Controllers
                 leaverequest.NumOfDays = c.Get(leaverequest.FromDate, leaverequest.ToDate);
 
                 LeaveRequestsController request = new LeaveRequestsController();
-                var succ = request.PostLeaveRequest(leaverequest);
-                
-                //db.LeaveRequests.Add(leaverequest);
-                //db.SaveChanges();
-                return RedirectToAction("UserLeaveRequests");
+                var response = request.PostLeaveRequest(leaverequest);
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return RedirectToAction("UserLeaveRequests");
+                }
+                else
+                {
+                    ModelState.AddModelError("createError", new Exception(response.Content.ReadAsStringAsync().Result));
+                }
             }
 
             return View(leaverequest);
@@ -168,7 +173,7 @@ namespace LMSServices.Controllers
             {
                 LeaveRequestsController request = new LeaveRequestsController();
 
-                if (leaverequest.AcceptedFromDate.Value != null && leaverequest.AcceptedToDate.Value != null) 
+                if (leaverequest.AcceptedFromDate.HasValue && leaverequest.AcceptedToDate.HasValue) 
                 {
                     CalculateNumOfDaysController c = new CalculateNumOfDaysController();
                     leaverequest.AcceptedNumOfDays = c.Get(leaverequest.AcceptedFromDate.Value, leaverequest.AcceptedToDate.Value);
@@ -191,16 +196,13 @@ namespace LMSServices.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("puterror", new Exception("Κάτι πήγε στραβά.. Ελέγξτε τα στοιχεία και δοκιμάστε ξανά.."));
-                    return View(leaverequest);
-                }
-                
-                //db.Entry(leaverequest).State = EntityState.Modified;
-                //db.SaveChanges();
-
-
-                
+                    ModelState.AddModelError("putError", succ.Content.ReadAsStringAsync().Result);
+                    //ModelState.AddModelError("putError", new Exception("Κάτι πήγε στραβά.. Ελέγξτε τα στοιχεία και δοκιμάστε ξανά.."));
+                }                
             }
+
+            GetDescriptionController descr = new GetDescriptionController();
+            ViewBag.descr = descr;
             return View(leaverequest);
         }
 

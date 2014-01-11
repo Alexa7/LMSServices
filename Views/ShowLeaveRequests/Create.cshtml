@@ -12,6 +12,11 @@
     <fieldset>
         <legend>LeaveRequest</legend>
 
+        <div>
+            @Html.ValidationMessage("createError");
+        </div>
+        <div id="ErrorMessageDiv" runat="server"></div>
+
 @*        <div class="editor-label">
             @Html.LabelFor(model => model.UserID)
         </div>

@@ -80,67 +80,59 @@ namespace LMSServices.Controllers
         // PUT api/LeaveRequests/5
         public HttpResponseMessage PutLeaveRequest(int id, LeaveRequest leaverequest)
         {
-            var status = HttpStatusCode.OK;
- 
-            if (ModelState.IsValid && id == leaverequest.ID)
+            HttpResponseMessage response = new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+            };
+
+            string errorMessage = ValidateLeaveRequest(leaverequest);
+
+            if (ModelState.IsValid && id == leaverequest.ID && string.IsNullOrEmpty(errorMessage))
             {
                 db.Entry(leaverequest).State = EntityState.Modified;
 
                 try
                 {
                     db.SaveChanges();
+                    response.StatusCode = HttpStatusCode.OK;
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    status = HttpStatusCode.NotFound;
+                    response.StatusCode = HttpStatusCode.NotFound;
+                    response.Content = new StringContent("Η εγγραφή δεν βρέθηκε");
                 }
-
-                status = HttpStatusCode.OK;
             }
             else
             {
-               status = HttpStatusCode.BadRequest;
+                response.Content = new StringContent(errorMessage);
             }
 
-            if (Request == null)
-            {
-                return new HttpResponseMessage(status);
-            }
-            else
-            {
-                return Request.CreateResponse(status);
-            }
+            return response;
         }
 
         // POST api/LeaveRequests
         public HttpResponseMessage PostLeaveRequest(LeaveRequest leaverequest)
         {
-            var status = HttpStatusCode.OK;
+            HttpResponseMessage response = new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+            };
 
-            if (ModelState.IsValid)
+            string errorMessage = ValidateLeaveRequest(leaverequest);
+
+            if (ModelState.IsValid && string.IsNullOrEmpty(errorMessage))
             {
                 db.LeaveRequests.Add(leaverequest);
                 db.SaveChanges();
 
-                status = HttpStatusCode.Created;
-                                
-                //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, leaverequest);
-                //response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = leaverequest.ID }));
-                //return response;
+                response.StatusCode = HttpStatusCode.OK;
             }
             else
             {
-                status = HttpStatusCode.BadRequest;
+                response.Content = new StringContent(errorMessage);
             }
 
-            if (Request == null)
-            {
-                return new HttpResponseMessage(status);
-            }
-            else
-            {
-                return Request.CreateResponse(status);
-            }
+            return response;
         }
 
         // DELETE api/LeaveRequests/5
@@ -164,6 +156,28 @@ namespace LMSServices.Controllers
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, leaverequest);
+        }
+
+        /// <summary>
+        /// Performs leave request validation
+        /// </summary>
+        /// <param name="leaveRequest">The leave request to validate</param>
+        /// <returns>The error message, empty string if request is valid</returns>
+        protected string ValidateLeaveRequest(LeaveRequest leaveRequest)
+        {
+            if (leaveRequest.FromDate > leaveRequest.ToDate)
+            {
+                return "Η ημερομηνία έναρξης άδειας δεν μπορεί να είναι μεγαλύτερη από την ημερομηνία λήξης";
+            }
+            if (leaveRequest.FromDate < DateTime.Now)
+            {
+                return "Η ημερομηνία έξαρξης άδειας έχει παρέλθει";
+            }
+            if (leaveRequest.NumOfDays < 0)
+            {
+                return string.Format("Δεν μπορείτε να πάρετε περισσότερες από {0} μέρες άδειας", 0);
+            }
+            return string.Empty;
         }
 
         protected override void Dispose(bool disposing)
