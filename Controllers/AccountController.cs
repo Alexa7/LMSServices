@@ -63,6 +63,13 @@ namespace LMSServices.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            GetDescriptionController descr = new GetDescriptionController();
+            ViewBag.descr = descr;
+
+            var roles = (SimpleRoleProvider)Roles.Provider;
+            var allRoles = roles.GetAllRoles();
+            ViewBag.allRoles = allRoles;
+            
             return View();
         }
 
@@ -79,8 +86,19 @@ namespace LMSServices.Controllers
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
+                    WebSecurity.CreateUserAndAccount(
+                            model.UserName, 
+                            model.Password,
+                            new  { LastName = model.LastName, 
+                                   FirstName = model.FirstName,
+                                   Email = model.Email,
+                                   Mobile = model.Mobile,
+                                   EmploymentDate = model.EmploymentDate,
+                                   UserRole = model.UserRole
+                            });
+                    //WebSecurity.Login(model.UserName, model.Password);
+                    Roles.AddUserToRoles(model.UserName, new[] { model.UserRole });
+
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)

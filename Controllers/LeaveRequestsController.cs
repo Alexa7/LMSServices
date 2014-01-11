@@ -57,10 +57,18 @@ namespace LMSServices.Controllers
         }
 
         // GET api/LeaveRequests/5
-        public IEnumerable<LeaveRequest> GetUserLeaveRequests(int userId)
+        public IEnumerable<LeaveRequest> GetUserLeaveRequests(int userId, string status=null)
         {
-            List<LeaveRequest> leaverequest = db.LeaveRequests.Where(o => o.UserID == userId).ToList();
-                        
+            List<LeaveRequest> leaverequest = null;
+            if (status != null)
+            {
+                leaverequest = db.LeaveRequests.Where(o => o.UserID == userId && o.Status == status).ToList();
+            }
+            else
+            {
+                leaverequest = db.LeaveRequests.Where(o => o.UserID == userId).ToList();
+            }
+
             if (leaverequest == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));

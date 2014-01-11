@@ -67,7 +67,7 @@
         </td>
         <td>
             @Html.ActionLink("Λεπτομέρειες", "Details", new { id = item.ID })
-            @if (String.Compare(item.Status, "P", false) != 0)
+            @if (String.Compare(item.Status, "P", false) == 0)
             {                   
                 @Html.ActionLink("Επεξεργασία", "Edit", new { id = item.ID });
                 @Html.ActionLink("Διαγραφή", "Delete", new { id = item.ID });

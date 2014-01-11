@@ -28,6 +28,5 @@ namespace LMSServices.Models
         }
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
         public DbSet<NationalHolidays> NationalHolidays { get; set; }
-        public DbSet<AcceptedLeave> AcceptedLeaves { get; set; }
     }
 }

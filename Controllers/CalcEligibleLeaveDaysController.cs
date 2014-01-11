@@ -19,22 +19,30 @@ namespace LMSServices.Controllers
         public int Get(DateTime registrationDate)
         {
             int numOfDays = 0;
-            if (registrationDate.Day < 10)
+            DateTime today = DateTime.Now;
+            if (today.Year > registrationDate.Year)
             {
-                numOfDays += 2;
+                numOfDays = 24;
             }
-            else if (registrationDate.Day < 20)
+            else
             {
-                numOfDays += 1;
-            }
-
-            if (registrationDate.Month != 12)
-            {
-                int tempMonth = registrationDate.Month + 1;
-                while (tempMonth <= 12)
+                if (registrationDate.Day < 10)
                 {
                     numOfDays += 2;
-                    tempMonth++;
+                }
+                else if (registrationDate.Day < 20)
+                {
+                    numOfDays += 1;
+                }
+
+                if (registrationDate.Month != 12)
+                {
+                    int tempMonth = registrationDate.Month + 1;
+                    while (tempMonth <= 12)
+                    {
+                        numOfDays += 2;
+                        tempMonth++;
+                    }
                 }
             }
             return numOfDays;

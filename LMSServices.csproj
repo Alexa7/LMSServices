@@ -162,6 +162,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CalcAcquiredLeaveDaysController.cs" />
     <Compile Include="Controllers\CalcEligibleLeaveDaysController.cs" />
     <Compile Include="Controllers\CalculateNumOfDaysController.cs" />
     <Compile Include="Controllers\GetDescriptionController.cs" />
@@ -170,16 +171,13 @@
     <Compile Include="Controllers\LeaveRequestsController.cs" />
     <Compile Include="Controllers\ShowLeaveRequestsController.cs" />
     <Compile Include="Controllers\NationalHolidaysController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AcceptedLeave.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\LeaveRequest.cs" />
     <Compile Include="Models\NationalHolidays.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -320,21 +318,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\ShowLeaveRequests\Delete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Users\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Users\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Users\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Users\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Users\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\ShowLeaveRequests\UserLeaveRequests.cshtml" />

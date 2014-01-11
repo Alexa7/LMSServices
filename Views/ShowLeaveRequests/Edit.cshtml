@@ -16,66 +16,99 @@
 
         <div class="editor-label">
             <label for="UserID">@ViewBag.descr.Get("LeaveRequestColumns", "UserID")</label>
-            @*@Html.LabelFor(model => model.UserID)*@
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.UserID, new { @readonly = "readonly" })
-            
-@*            @Html.EditorFor(model => model.UserID)
-            @Html.ValidationMessageFor(model => model.UserID)*@
+            @Html.TextBoxFor(model => model.UserID, new { @readonly = "readonly" })            
         </div>
 
         <div class="editor-label">
             <label for="FromDate">@ViewBag.descr.Get("LeaveRequestColumns", "FromDate")</label>
-            @*@Html.LabelFor(model => model.FromDate)*@
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.FromDate, new { @Value = Model.FromDate.ToString("yyyy-MM-dd"), @class = "datepicker" })
-            @Html.ValidationMessageFor(model => model.FromDate)
+            @if (Model.UserID != @WebSecurity.GetUserId(User.Identity.Name))
+            {
+                @Html.TextBoxFor(model => model.FromDate, new { @Value = Model.FromDate.ToString("yyyy-MM-dd"), @class = "datepicker", @readonly = "readonly" })
+            }
+            else
+            {
+                @Html.TextBoxFor(model => model.FromDate, new { @Value = Model.FromDate.ToString("yyyy-MM-dd"), @class = "datepicker" })
+                @Html.ValidationMessageFor(model => model.FromDate)
+            }
         </div>
 
         <div class="editor-label">
             <label for="ToDate">@ViewBag.descr.Get("LeaveRequestColumns", "ToDate")</label>
-            @*@Html.LabelFor(model => model.ToDate)*@
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.ToDate, new { @Value = Model.ToDate.ToString("yyyy-MM-dd"), @class = "datepicker" })
-            @Html.ValidationMessageFor(model => model.ToDate)
+            @if (Model.UserID != @WebSecurity.GetUserId(User.Identity.Name))
+            {
+                @Html.TextBoxFor(model => model.ToDate, new { @Value = Model.ToDate.ToString("yyyy-MM-dd"), @class = "datepicker", @readonly = "readonly" })
+            }
+            else
+            {
+                @Html.TextBoxFor(model => model.ToDate, new { @Value = Model.ToDate.ToString("yyyy-MM-dd"), @class = "datepicker" })
+                @Html.ValidationMessageFor(model => model.ToDate)
+            }
         </div>
 
+        @if (Model.Status == "A" || User.IsInRole("HumanResources"))
+        {
+            <div class="editor-label">
+                <label for="AcceptedFromDate">@ViewBag.descr.Get("LeaveRequestColumns", "AcceptedFromDate")</label>
+            </div>
+            <div class="editor-field">
+                @if (Model.AcceptedFromDate != null)
+                {
+                    @Html.TextBoxFor(model => model.AcceptedFromDate, new { @Value = Model.AcceptedFromDate.Value.ToString("yyyy-MM-dd"), @readonly = "readonly" })
+                }
+                else
+                {
+                    @Html.TextBoxFor(model => model.AcceptedFromDate, new { @class = "datepicker" })
+                    @Html.ValidationMessageFor(model => model.AcceptedFromDate)
+                }
+            </div>
+
+            <div class="editor-label">
+                <label for="ToDate">@ViewBag.descr.Get("LeaveRequestColumns", "AcceptedToDate")</label>
+            </div>
+            <div class="editor-field">
+                @if (Model.AcceptedToDate != null)
+                {
+                    @Html.TextBoxFor(model => model.AcceptedToDate, new { @Value = Model.AcceptedToDate.Value.ToString("yyyy-MM-dd"), @readonly = "readonly" })
+                }
+                else
+                {
+                    @Html.TextBoxFor(model => model.AcceptedToDate, new { @class = "datepicker" })
+                    @Html.ValidationMessageFor(model => model.AcceptedToDate)
+                }
+            </div>
+        }
+        
         <div class="editor-label">
             <label for="Type">@ViewBag.descr.Get("LeaveRequestColumns", "Type")</label>
-            @*@Html.LabelFor(model => model.Type)*@
         </div>
         <div class="editor-field">
             <select id="Type" name="Type" class="valid">
-                <option value="L" @(String.Compare(Model.Type, "L", false) == 0? "selected" : "") >@ViewBag.descr.Get("LeaveRequestType", Model.Type)</option>
+                <option value="L" @(String.Compare(Model.Type, "L", false) == 0 ? "selected" : "") >@ViewBag.descr.Get("LeaveRequestType", Model.Type)</option>
             </select>
-
-           @* @Html.TextBoxFor(model => model.Type, new { @Value = @ViewBag.descr.Get("LeaveRequestType", Model.Type) })*@
-            @*@Html.EditorFor(model => model.Type)*@
             @Html.ValidationMessageFor(model => model.Type)
         </div>
 
         <div class="editor-label">
             <label for="NumOfDays">@ViewBag.descr.Get("LeaveRequestColumns", "NumOfDays")</label>
-            @*@Html.LabelFor(model => model.NumOfDays)*@
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.NumOfDays, new { @readonly = "readonly" })
-            
-            @*@Html.ValidationMessageFor(model => model.NumOfDays)*@
+            @if (Model.Status == "A" && Model.AcceptedNumOfDays != null)
+            {
+                @Html.TextBoxFor(model => model.AcceptedNumOfDays, new { @readonly = "readonly" })
+            }
+            else
+            {
+                @Html.TextBoxFor(model => model.NumOfDays, new { @readonly = "readonly" })
+            }
         </div><br />
 
          @Html.HiddenFor(model => model.Status)
-
-@*        <div class="editor-label">
-            @Html.LabelFor(model => model.Status)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Status)
-            @Html.ValidationMessageFor(model => model.Status)
-        </div>*@
 
         <p>
             <input type="submit" value="Αποθήκευση" />
@@ -84,7 +117,16 @@
 }
 
 <div>
-    @Html.ActionLink("Επιστροφή στη Λίστα", "UserLeaveRequests")
+    @if (User.IsInRole("HumanResources"))
+    {
+        @Html.ActionLink("Επιστροφή στη Λίστα Αιτήσεων σε εκκρεμότητα", "PendingLeaveRequests")
+        <br />
+        @Html.ActionLink("Επιστροφή στη Λίστα Προσωπικών Αιτήσεων", "UserLeaveRequests")
+    }
+    else
+    {
+        @Html.ActionLink("Επιστροφή στη Λίστα", "UserLeaveRequests")
+    }
 </div>
 
 @section Scripts {

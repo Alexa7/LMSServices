@@ -1,11 +1,10 @@
 ﻿@model LMSServices.Models.RegisterModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Εγγραφή Νέου Χρήστη";
 }
 
 <hgroup class="title">
     <h1>@ViewBag.Title.</h1>
-    <h2>Create a new account.</h2>
 </hgroup>
 
 @using (Html.BeginForm()) {
@@ -27,8 +26,37 @@
                 @Html.LabelFor(m => m.ConfirmPassword)
                 @Html.PasswordFor(m => m.ConfirmPassword)
             </li>
+            <li>
+                @Html.LabelFor(m => m.FirstName)
+                @Html.TextBoxFor(m => m.FirstName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.LastName)
+                @Html.TextBoxFor(m => m.LastName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.EmploymentDate)
+                @Html.TextBoxFor(m => m.EmploymentDate)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Mobile)
+                @Html.TextBoxFor(m => m.Mobile)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.UserRole)
+                <select id="UserRole" name="UserRole" class="valid">
+                    @foreach (var aRole in @ViewBag.allRoles)
+                    {
+                        <option value="@aRole">@ViewBag.descr.Get("UserType", aRole)</option>
+                    }                    
+                </select>
+            </li>
         </ol>
-        <input type="submit" value="Register" />
+        <input type="submit" value="Προσθήκη Χρήστη" />
     </fieldset>
 }
 

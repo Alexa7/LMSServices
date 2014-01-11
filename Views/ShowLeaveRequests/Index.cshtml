@@ -49,11 +49,26 @@
             @Html.DisplayFor(modelItem => item.UserID)
         </td>
         <td>
-            @item.FromDate.ToString("dd-MM-yyyy")
-            @item.AcceptedFromDate
+            @if (item.Status == "A" && @item.AcceptedFromDate.Value != @item.FromDate)
+            {
+                @item.AcceptedFromDate.Value.ToString("dd-MM-yyyy") 
+                <br /><small>Αίτηση: @item.FromDate.ToString("dd-MM-yyyy")</small>               
+            }
+            else
+            {
+                @item.FromDate.ToString("dd-MM-yyyy")
+            }            
         </td>
         <td>
-            @item.ToDate.ToString("dd-MM-yyyy")
+            @if (item.Status == "A" && @item.AcceptedToDate.Value != @item.ToDate)
+            {
+                @item.AcceptedToDate.Value.ToString("dd-MM-yyyy") 
+                <br /><small>Αίτηση: @item.ToDate.ToString("dd-MM-yyyy")</small>               
+            }
+            else
+            {
+                @item.ToDate.ToString("dd-MM-yyyy")
+            }  
         </td>
         <td>
             @ViewBag.descr.Get("LeaveRequestType", item.Type)
@@ -68,11 +83,11 @@
         </td>
         <td>
             @Html.ActionLink("Λεπτομέρειες", "Details", new { id = item.ID })
-            @if (String.Compare(item.Status, "P", false) != 0)
+            @if (String.Compare(item.Status, "A", false) != 0)
             {                   
                 @Html.ActionLink("Επεξεργασία", "Edit", new { id = item.ID });
                 @Html.ActionLink("Διαγραφή", "Delete", new { id = item.ID });
-             }
+            }
         </td>
     </tr>
 }

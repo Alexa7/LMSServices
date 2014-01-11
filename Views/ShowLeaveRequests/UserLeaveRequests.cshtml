@@ -52,17 +52,41 @@
         </td>
     }*@
         <td>
-            @item.FromDate.ToString("dd-MM-yyyy")
+            @if (item.Status == "A" && @item.AcceptedFromDate.Value != @item.FromDate)
+            {
+                @item.AcceptedFromDate.Value.ToString("dd-MM-yyyy") 
+                <br /><small>(Αίτηση: @item.FromDate.ToString("dd-MM-yyyy"))</small>
+            }
+            else
+            {
+                @item.FromDate.ToString("dd-MM-yyyy")
+            }  
         </td>
         <td>
-            @item.ToDate.ToString("dd-MM-yyyy")
+            @if (item.Status == "A" && @item.AcceptedToDate.Value != @item.ToDate)
+            {
+                @item.AcceptedToDate.Value.ToString("dd-MM-yyyy") 
+                <br /><small>(Αίτηση: @item.ToDate.ToString("dd-MM-yyyy"))</small>               
+            }
+            else
+            {
+                @item.ToDate.ToString("dd-MM-yyyy")
+            }
         </td>
         <td>
             @ViewBag.descr.Get("LeaveRequestType", item.Type)
             @*@Html.DisplayFor(modelItem => item.Type)*@
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NumOfDays)
+            @if (item.Status == "A" && @item.AcceptedNumOfDays != @item.NumOfDays)
+            {
+                @item.AcceptedNumOfDays 
+                <br /><small>(Αίτηση: @item.NumOfDays)</small>               
+            }
+            else
+            {
+                @item.NumOfDays
+            }
         </td>
         <td>
             @ViewBag.descr.Get("LeaveRequestStatus", item.Status)
@@ -70,7 +94,7 @@
         </td>
         <td>
             @Html.ActionLink("Λεπτομέρειες", "Details", new { id = item.ID })
-            @if (String.Compare(item.Status, "P", false) != 0)
+            @if (String.Compare(item.Status, "P", false) == 0)
             {
                 @Html.ActionLink("Επεξεργασία", "Edit", new { id = item.ID });
                 @Html.ActionLink("Διαγραφή", "Delete", new { id = item.ID });
@@ -82,5 +106,19 @@
 </table>
 
 <br />
+<hr />
 <br />
-<p>Υπόλοιπο ημερών άδειας: 10</p>
+
+<table class="leave_table">
+    <tr>
+        <td>Συνολικές ημέρες άδειας για το έτος @DateTime.Now.Year</td>
+        <td>Αποδεκτές ημέρες άδειας</td>
+        <td>Υπόλοιπο ημερών άδειας</td>
+    </tr>
+    <tr>
+        <td>@ViewBag.numOfEligibleDays</td>
+        <td>@ViewBag.numOfDaysAcquired</td>
+        <td>@(ViewBag.numOfEligibleDays - ViewBag.numOfDaysAcquired)</td>
+    </tr>
+</table>
+

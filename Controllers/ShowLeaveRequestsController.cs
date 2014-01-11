@@ -40,6 +40,34 @@ namespace LMSServices.Controllers
             LeaveRequestsController userleaverequests = new LeaveRequestsController();
             var requests = userleaverequests.GetUserLeaveRequests(WebSecurity.GetUserId(User.Identity.Name));
 
+            var acceptedRequests = userleaverequests.GetUserLeaveRequests(WebSecurity.GetUserId(User.Identity.Name), "A");
+            int numOfDaysAcquired = 0;
+
+            foreach (var anAcceptedRequest in acceptedRequests)
+            {
+                numOfDaysAcquired += anAcceptedRequest.AcceptedNumOfDays;
+            }
+            ViewBag.numOfDaysAcquired = numOfDaysAcquired;
+
+            CalcEligibleLeaveDaysController eligibleleavedays = new CalcEligibleLeaveDaysController();
+            int numOfEligibleDays = eligibleleavedays.Get(DateTime.Now);
+            ViewBag.numOfEligibleDays = numOfEligibleDays;
+
+            return View(requests);
+        }
+
+        //
+        // GET: /ShowLeaveRequests/UserLeaveRequests
+
+        public ActionResult UserAcceptedRequests()
+        {
+
+            GetDescriptionController descr = new GetDescriptionController();
+            ViewBag.descr = descr;
+
+            LeaveRequestsController userleaverequests = new LeaveRequestsController();
+            var requests = userleaverequests.GetUserLeaveRequests(WebSecurity.GetUserId(User.Identity.Name), "A");
+
             return View(requests);
         }
 
@@ -53,7 +81,7 @@ namespace LMSServices.Controllers
             ViewBag.descr = descr;
 
             LeaveRequestsController userleaverequests = new LeaveRequestsController();
-            var requests = userleaverequests.GetLeaveRequest("Q");
+            var requests = userleaverequests.GetLeaveRequest("P");
 
             return View(requests);
         }
@@ -96,10 +124,9 @@ namespace LMSServices.Controllers
             if (ModelState.IsValid)
             {
                 leaverequest.UserID = WebSecurity.GetUserId(User.Identity.Name);
-                leaverequest.Status = "Q";
+                leaverequest.Status = "P";
                 
                 CalculateNumOfDaysController c = new CalculateNumOfDaysController();
-
                 leaverequest.NumOfDays = c.Get(leaverequest.FromDate, leaverequest.ToDate);
 
                 LeaveRequestsController request = new LeaveRequestsController();
@@ -140,11 +167,27 @@ namespace LMSServices.Controllers
             if (ModelState.IsValid)
             {
                 LeaveRequestsController request = new LeaveRequestsController();
+
+                if (leaverequest.AcceptedFromDate.Value != null && leaverequest.AcceptedToDate.Value != null) 
+                {
+                    CalculateNumOfDaysController c = new CalculateNumOfDaysController();
+                    leaverequest.AcceptedNumOfDays = c.Get(leaverequest.AcceptedFromDate.Value, leaverequest.AcceptedToDate.Value);
+                    leaverequest.Status = "A";
+                    leaverequest.AcceptedBy = WebSecurity.GetUserId(User.Identity.Name);
+                }
+
+
                 var succ = request.PutLeaveRequest(leaverequest.ID, leaverequest );
                 if (succ.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    //ModelState.AddModelError("puterror", new Exception("Gamithike Ligo.."));
-                    return RedirectToAction("UserLeaveRequests");
+                {   
+                    if (User.IsInRole("HumanResources")) 
+                    {
+                        return RedirectToAction("PendingLeaveRequests");
+                    }
+                    else 
+                    {
+                        return RedirectToAction("UserLeaveRequests");
+                    }
                 }
                 else
                 {

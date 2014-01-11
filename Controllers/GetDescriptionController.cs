@@ -24,11 +24,15 @@ namespace LMSServices.Controllers
             {
                 if (value == "P")
                 {
-                    description = "Επεξεργασμένη";
-                }
-                else if (value == "Q")
-                {
                     description = "Εκκρεμεί";
+                }
+                else if (value == "A")
+                {
+                    description = "Αποδεκτή";
+                }
+                else if (value == "D")
+                {
+                    description = "Απερρίφθει";
                 }
                 else if (value == "C")
                 {
@@ -72,6 +76,14 @@ namespace LMSServices.Controllers
                 {
                     description = "Έως";
                 }
+                else if (value == "AcceptedFromDate")
+                {
+                    description = "Αποδεκτή από";
+                }
+                else if (value == "AcceptedToDate")
+                {
+                    description = "Αποδεκτή έως";
+                }
                 else if (value == "Type")
                 {
                     description = "Τύπος Άδειας";
@@ -83,6 +95,29 @@ namespace LMSServices.Controllers
                 else if (value == "Status")
                 {
                     description = "Κατάσταση";
+                }
+                else
+                {
+                    return value;
+                }
+            }
+            else if (type == "UserType") 
+            {
+                if (value == "HumanResources")
+                {
+                    description = "Human Resources";
+                }
+                else if (value == "ProjectManager")
+                {
+                    description = "Project Manager";
+                }
+                else if (value == "SoftwareEngineer")
+                {
+                    description = "Software Engineer";
+                }
+                else if (value == "OfficeStaff")
+                {
+                    description = "Office Staff";
                 }
                 else
                 {

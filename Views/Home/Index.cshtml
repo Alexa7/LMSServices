@@ -17,13 +17,13 @@
     if (User.IsInRole("HumanResources"))
     {
         <h4>Διαχείριση Αδειών Χρηστών</h4>
-        <p>@Html.ActionLink("Εμφάνιση Αιτήσεων σε εκκρεμότητα", "Index", "ShowLeaveRequests")</p>
+        <p>@Html.ActionLink("Εμφάνιση Αιτήσεων σε εκκρεμότητα", "PendingLeaveRequests", "ShowLeaveRequests")</p>
         <br /><br />
         <h4>Διαχείριση Προσωπικών Αιτήσεων</h4>
     }
 
-    <p>@Html.ActionLink("Εμφάνιση Αιτήσεων", "Index", "ShowLeaveRequests/UserLeaveRequests")</p>
-    <p>@Html.ActionLink("Εμφάνιση Αδειών", "Index", "ShowLeaveRequests")</p>
+    <p>@Html.ActionLink("Εμφάνιση Αιτήσεων", "UserLeaveRequests", "ShowLeaveRequests")</p>
+    @*<p>@Html.ActionLink("Εμφάνιση Αδειών", "UserAcceptedRequests", "ShowLeaveRequests")</p>*@
     <p>@Html.ActionLink("Δημιουργία νέας αίτησης", "Create", "ShowLeaveRequests")</p>
 
 

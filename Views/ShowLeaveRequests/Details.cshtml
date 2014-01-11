@@ -20,14 +20,30 @@
          @ViewBag.descr.Get("LeaveRequestColumns", "FromDate")
     </div>
     <div class="display-field">
-        @Model.FromDate.ToString("dd-MM-yyyy")
+        @if (Model.Status == "A" && @Model.AcceptedFromDate.Value != @Model.FromDate)
+        {
+            @Model.AcceptedFromDate.Value.ToString("dd-MM-yyyy") 
+            <br /><small>(Αίτηση: @Model.FromDate.ToString("dd-MM-yyyy"))</small>               
+        }
+        else
+        {
+            @Model.FromDate.ToString("dd-MM-yyyy")
+        }
     </div><br />
 
     <div class="display-label">
          @ViewBag.descr.Get("LeaveRequestColumns", "ToDate")
     </div>
     <div class="display-field">
-        @Model.ToDate.ToString("dd-MM-yyyy")
+        @if (Model.Status == "A" && @Model.AcceptedToDate.Value != @Model.ToDate)
+        {
+            @Model.AcceptedToDate.Value.ToString("dd-MM-yyyy") 
+            <br /><small>(Αίτηση: @Model.ToDate.ToString("dd-MM-yyyy"))</small>
+        }
+        else
+        {
+            @Model.ToDate.ToString("dd-MM-yyyy")
+        }
     </div><br />
 
     <div class="display-label">
@@ -41,7 +57,15 @@
          @ViewBag.descr.Get("LeaveRequestColumns", "NumOfDays")
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.NumOfDays)
+        @if (Model.Status == "A" && @Model.AcceptedNumOfDays != @Model.NumOfDays)
+        {
+            @Model.AcceptedNumOfDays 
+            <br /><small>(Αίτηση: @Model.NumOfDays)</small>               
+        }
+        else
+        {
+            @Model.NumOfDays
+        }
     </div><br />
 
     <div class="display-label">
@@ -53,9 +77,19 @@
 </fieldset>
 <br />
 <p>
-    @if (String.Compare(Model.Status, "P", false) != 0)
+    @if (String.Compare(Model.Status, "P", false)  == 0 && Model.FromDate > DateTime.Now)
     {
         @Html.ActionLink("Επεξεργασία", "Edit", new { id = Model.ID }) 
     }
-    @Html.ActionLink("Επιστροφή στη Λίστα", "UserLeaveRequests")
+    <br />
+    @if (User.IsInRole("HumanResources"))
+    {
+        @Html.ActionLink("Επιστροφή στη Λίστα Αιτήσεων σε εκκρεμότητα", "PendingLeaveRequests")
+        <br />
+        @Html.ActionLink("Επιστροφή στη Λίστα Προσωπικών Αιτήσεων", "UserLeaveRequests")
+    }
+    else
+    {
+        @Html.ActionLink("Επιστροφή στη Λίστα", "UserLeaveRequests")
+    }
 </p>

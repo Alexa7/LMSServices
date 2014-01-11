@@ -26,6 +26,11 @@ namespace LMSServices.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime EmploymentDate { get; set; }
+        public string Email { get; set; }
+        public string Mobile { get; set; }
     }
 
     public class RegisterExternalLoginModel
@@ -41,17 +46,17 @@ namespace LMSServices.Models
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = "Παλιός κωδικός")]
         public string OldPassword { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "Νέος κωδικός")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
+        [Display(Name = "Επιβεβαίωση Κωδικού")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
@@ -74,19 +79,49 @@ namespace LMSServices.Models
     public class RegisterModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Όνομα Χρήστη")]
         public string UserName { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Ο {0} πρέπει να περιλαμβάνει τουλάχιστον {2} χαρακτήρες.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Κωδικός")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Επιβεβαίωση Κωδικού")]
+        [Compare("Password", ErrorMessage = "Τα πεδία Κωδικός και Επιβεβαίωση Κωδικού είναι διαφορετικά!")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Όνομα")]
+        [DataType(DataType.Text)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Επώνυμο")]
+        [DataType(DataType.Text)]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Ημερομηνία Πρόσληψης")]
+        [DataType(DataType.Date)]
+        public string EmploymentDate { get; set; }
+
+        [Required]
+        [Display(Name = "Email")]
+        [DataType(DataType.Text)]
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Κινητό Τηλέφωνο")]
+        [DataType(DataType.Text)]
+        public string Mobile { get; set; }
+
+        [Required]
+        [Display(Name = "Τύπος Υπαλλήλου")]
+        [DataType(DataType.Text)]
+        public string UserRole { get; set; }
     }
 
     public class ExternalLogin

@@ -21,6 +21,13 @@
                     <nav>
                         <ul id="menu">
                             <li>@Html.ActionLink("Αρχική", "Index", "Home")</li>
+                            @if (Request.IsAuthenticated)
+                            {
+                                if (User.IsInRole("HumanResources"))
+                                {
+                                    <li>@Html.ActionLink("Εγγραφή Νέου Χρήστη", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                }
+                            }
                             <!--li>@Html.ActionLink("About", "About", "Home")</li-->
                             <li>@Html.ActionLink("Επικοινωνία", "Contact", "Home")</li>
                         </ul>
