@@ -46,7 +46,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.UserID)
+            @ViewBag.Users[item.UserID]
         </td>
         <td>
             @item.FromDate.ToString("dd-MM-yyyy")

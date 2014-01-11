@@ -164,6 +164,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CalcAcquiredLeaveDaysController.cs" />
     <Compile Include="Controllers\CalcEligibleLeaveDaysController.cs" />
+    <Compile Include="Controllers\CalcRemainingLeaveDaysController.cs" />
     <Compile Include="Controllers\CalculateNumOfDaysController.cs" />
     <Compile Include="Controllers\GetDescriptionController.cs" />
     <Compile Include="Controllers\HelloWorldController.cs" />

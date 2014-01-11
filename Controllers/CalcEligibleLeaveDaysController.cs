@@ -16,11 +16,12 @@ namespace LMSServices.Controllers
         }
 
         // GET api/calceligibleleavedays/5
-        public int Get(DateTime registrationDate)
+        public int Get(DateTime registrationDate, int year = 0)
         {
             int numOfDays = 0;
-            DateTime today = DateTime.Now;
-            if (today.Year > registrationDate.Year)
+            if (year < registrationDate.Year) { year = DateTime.Now.Year; }
+
+            if (year > registrationDate.Year)
             {
                 numOfDays = 24;
             }

@@ -25,6 +25,8 @@ namespace LMSServices.Controllers
             LeaveRequestsController userleaverequests = new LeaveRequestsController();
             var requests = userleaverequests.GetLeaveRequests();
 
+            
+
             return View(requests);
         }
 
@@ -82,6 +84,13 @@ namespace LMSServices.Controllers
 
             LeaveRequestsController userleaverequests = new LeaveRequestsController();
             var requests = userleaverequests.GetLeaveRequest("P");
+
+            Dictionary<Int32, String> usersNames = new Dictionary<int, string>();
+            foreach (UserProfile u in db.UserProfiles.ToList())
+            {
+                usersNames[u.UserId] = u.LastName + " " + u.FirstName;
+            }
+            ViewBag.Users = usersNames;
 
             return View(requests);
         }

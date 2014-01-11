@@ -31,6 +31,7 @@ namespace LMSServices.Models
         public DateTime EmploymentDate { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
+        public string UserRole { get; set; }
     }
 
     public class RegisterExternalLoginModel

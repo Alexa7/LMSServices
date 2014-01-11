@@ -16,93 +16,27 @@ namespace LMSServices.Controllers
     {
         private DefaultDBContext db = new DefaultDBContext();
 
-        // GET api/CalcRemainingLeaveDays
-        public IEnumerable<LeaveRequest> GetLeaveRequests()
-        {
-            return db.LeaveRequests.AsEnumerable();
-        }
-
         // GET api/CalcRemainingLeaveDays/5
-        public LeaveRequest GetLeaveRequest(int id)
+        public int Get(int id, int year = 0)
         {
-            LeaveRequest leaverequest = db.LeaveRequests.Find(id);
-            if (leaverequest == null)
+            if (year < 2004) { year = DateTime.Now.Year; }
+         
+            LeaveRequestsController userleaverequests = new LeaveRequestsController();
+
+            var acceptedRequests = userleaverequests.GetUserLeaveRequests(id, "A", year);
+            int numOfDaysAcquired = 0;
+
+            foreach (var anAcceptedRequest in acceptedRequests)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+                numOfDaysAcquired += anAcceptedRequest.AcceptedNumOfDays;
             }
 
-            return leaverequest;
-        }
+            CalcEligibleLeaveDaysController eligibleleavedays = new CalcEligibleLeaveDaysController();
+            int numOfEligibleDays = eligibleleavedays.Get(DateTime.Now);
 
-        // PUT api/CalcRemainingLeaveDays/5
-        public HttpResponseMessage PutLeaveRequest(int id, LeaveRequest leaverequest)
-        {
-            if (ModelState.IsValid && id == leaverequest.ID)
-            {
-                db.Entry(leaverequest).State = EntityState.Modified;
+            var numOfRemainingDays = numOfEligibleDays - numOfDaysAcquired;
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
-                }
-
-                return Request.CreateResponse(HttpStatusCode.OK);
-            }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-        }
-
-        // POST api/CalcRemainingLeaveDays
-        public HttpResponseMessage PostLeaveRequest(LeaveRequest leaverequest)
-        {
-            if (ModelState.IsValid)
-            {
-                db.LeaveRequests.Add(leaverequest);
-                db.SaveChanges();
-
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, leaverequest);
-                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = leaverequest.ID }));
-                return response;
-            }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-        }
-
-        // DELETE api/CalcRemainingLeaveDays/5
-        public HttpResponseMessage DeleteLeaveRequest(int id)
-        {
-            LeaveRequest leaverequest = db.LeaveRequests.Find(id);
-            if (leaverequest == null)
-            {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-
-            db.LeaveRequests.Remove(leaverequest);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-
-            return Request.CreateResponse(HttpStatusCode.OK, leaverequest);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
+            return numOfRemainingDays;
         }
     }
 }

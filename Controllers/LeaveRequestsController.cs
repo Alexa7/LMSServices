@@ -57,16 +57,25 @@ namespace LMSServices.Controllers
         }
 
         // GET api/LeaveRequests/5
-        public IEnumerable<LeaveRequest> GetUserLeaveRequests(int userId, string status=null)
+        public IEnumerable<LeaveRequest> GetUserLeaveRequests(int userId, string status=null, int year=0)
         {
+            if (year < 2004) { year = DateTime.Now.Year; }
             List<LeaveRequest> leaverequest = null;
+            
             if (status != null)
             {
-                leaverequest = db.LeaveRequests.Where(o => o.UserID == userId && o.Status == status).ToList();
+                if (status == "A")
+                {
+                    leaverequest = db.LeaveRequests.Where(o => o.UserID == userId && o.Status == status && o.AcceptedFromDate.HasValue && o.AcceptedFromDate.Value.Year == year).ToList();
+                }
+                else
+                {
+                    leaverequest = db.LeaveRequests.Where(o => o.UserID == userId && o.Status == status && o.FromDate.Year == year).ToList();
+                }
             }
             else
             {
-                leaverequest = db.LeaveRequests.Where(o => o.UserID == userId).ToList();
+                leaverequest = db.LeaveRequests.Where(o => o.UserID == userId && o.FromDate.Year == year).ToList();
             }
 
             if (leaverequest == null)
