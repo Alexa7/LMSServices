@@ -94,3 +94,46 @@ C:\Users\Alexa\Documents\Visual Studio 2010\Projects\LMSServices\bin\DotNetOpenA
 C:\Users\Alexa\Documents\Visual Studio 2010\Projects\LMSServices\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Alexa\Documents\Visual Studio 2010\Projects\LMSServices\obj\Debug\LMSServices.dll
 C:\Users\Alexa\Documents\Visual Studio 2010\Projects\LMSServices\obj\Debug\LMSServices.pdb
+C:\Users\tedk\Dev\LMSServices\bin\LMSServices.dll
+C:\Users\tedk\Dev\LMSServices\bin\LMSServices.pdb
+C:\Users\tedk\Dev\LMSServices\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\tedk\Dev\LMSServices\bin\Microsoft.Web.WebPages.OAuth.dll
+C:\Users\tedk\Dev\LMSServices\bin\System.Net.Http.dll
+C:\Users\tedk\Dev\LMSServices\bin\System.Net.Http.Formatting.dll
+C:\Users\tedk\Dev\LMSServices\bin\System.Net.Http.WebRequest.dll
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.Helpers.dll
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.Http.dll
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.Http.WebHost.dll
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.Mvc.dll
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.Razor.dll
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.WebPages.Deployment.dll
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.WebPages.dll
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.WebPages.Razor.dll
+C:\Users\tedk\Dev\LMSServices\bin\WebMatrix.Data.dll
+C:\Users\tedk\Dev\LMSServices\bin\WebMatrix.WebData.dll
+C:\Users\tedk\Dev\LMSServices\bin\EntityFramework.xml
+C:\Users\tedk\Dev\LMSServices\bin\Microsoft.Web.Infrastructure.xml
+C:\Users\tedk\Dev\LMSServices\bin\Newtonsoft.Json.xml
+C:\Users\tedk\Dev\LMSServices\bin\System.Net.Http.xml
+C:\Users\tedk\Dev\LMSServices\bin\System.Net.Http.Formatting.xml
+C:\Users\tedk\Dev\LMSServices\bin\System.Net.Http.WebRequest.xml
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.Helpers.xml
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.Http.xml
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.Http.WebHost.xml
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.Mvc.xml
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.Razor.xml
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.WebPages.xml
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.WebPages.Deployment.xml
+C:\Users\tedk\Dev\LMSServices\bin\System.Web.WebPages.Razor.xml
+C:\Users\tedk\Dev\LMSServices\bin\WebMatrix.Data.xml
+C:\Users\tedk\Dev\LMSServices\bin\Microsoft.Web.WebPages.OAuth.xml
+C:\Users\tedk\Dev\LMSServices\bin\WebMatrix.WebData.xml
+C:\Users\tedk\Dev\LMSServices\bin\DotNetOpenAuth.AspNet.xml
+C:\Users\tedk\Dev\LMSServices\bin\DotNetOpenAuth.Core.xml
+C:\Users\tedk\Dev\LMSServices\bin\DotNetOpenAuth.OAuth.Consumer.xml
+C:\Users\tedk\Dev\LMSServices\bin\DotNetOpenAuth.OAuth.xml
+C:\Users\tedk\Dev\LMSServices\bin\DotNetOpenAuth.OpenId.xml
+C:\Users\tedk\Dev\LMSServices\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+C:\Users\tedk\Dev\LMSServices\obj\Debug\LMSServices.csprojResolveAssemblyReference.cache
+C:\Users\tedk\Dev\LMSServices\obj\Debug\LMSServices.dll
+C:\Users\tedk\Dev\LMSServices\obj\Debug\LMSServices.pdb

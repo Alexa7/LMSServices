@@ -12,6 +12,10 @@
     <fieldset>
         <legend>LeaveRequest</legend>
 
+        <div>
+            @Html.ValidationMessage("putError")
+        </div>
+
         @Html.HiddenFor(model => model.ID)
 
         <div class="editor-label">
